@@ -44,6 +44,8 @@ namespace Quest
 
             Robe currentAdventurerRobe = new Robe();
             Hat currentAdventurerHat = new Hat();
+            Prize currentAdventurerPrize = new Prize();
+
             Console.WriteLine("Who is the embarking on this quest?");
             string currentAdventurer = Console.ReadLine();
             Console.WriteLine("On a scale of 0 - 10, how shiny is your hat?");
@@ -71,6 +73,7 @@ namespace Quest
             string wardrobe = theAdventurer.GetDescription();
             Console.WriteLine(wardrobe);
             beginQuest();
+            currentAdventurerPrize.ShowPrize(theAdventurer);
 
             void beginQuest()
             {
