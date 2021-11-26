@@ -25,11 +25,11 @@ namespace Quest
 
             Challenge favoriteBeatle = new Challenge(
                 @"Who's your favorite Beatle?
-    1) John
-    2) Paul
-    3) George
-    4) Ringo
-",
+                1) John
+                2) Paul
+                3) George
+                4) Ringo
+                ",
                 4, 20
             );
 
@@ -42,16 +42,21 @@ namespace Quest
             int minAwesomeness = 0;
             int maxAwesomeness = 100;
 
-            // Make a new "Adventurer" object using the "Adventurer" class
+            Robe currentAdventurerRobe = new Robe();
+            Hat currentAdventurerHat = new Hat();
             Console.WriteLine("Who is the embarking on this quest?");
             string currentAdventurer = Console.ReadLine();
-            Robe currentAdventurerRobe = new Robe();
+            Console.WriteLine("On a scale of 0 - 10, how shiny is your hat?");
+            int shininessLevel = int.Parse(Console.ReadLine());
             currentAdventurerRobe.Colors = new List<string>();
             currentAdventurerRobe.Colors.Add("red");
             currentAdventurerRobe.Colors.Add("turquoise");
             currentAdventurerRobe.Colors.Add("banana");
             currentAdventurerRobe.Length = "48 inches";
-            Adventurer theAdventurer = new Adventurer(currentAdventurer, currentAdventurerRobe);
+            currentAdventurerHat.ShininessLevel = shininessLevel;
+
+            // Make a new "Adventurer" object using the "Adventurer" class
+            Adventurer theAdventurer = new Adventurer(currentAdventurer, currentAdventurerRobe, currentAdventurerHat);
 
             // A list of challenges for the Adventurer to complete
             // Note we can use the List class here because have the line "using System.Collections.Generic;" at the top of the file.
