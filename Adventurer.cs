@@ -12,13 +12,38 @@ namespace Quest
         //  So it can be read and changed by any code in the application
         public int Awesomeness { get; set; }
 
+        //This is an immutable property with only a getter
+        private Robe _ColorfulRobe { get; }
+
+        public Hat Hat { get; set; }
         // A constructor to make a new Adventurer object with a given name
-        public Adventurer(string name)
+        public Adventurer(string name, Robe robe, Hat hat)
         {
             Name = name;
             Awesomeness = 50;
+            _ColorfulRobe = robe;
+            Hat = hat;
         }
 
+        public string GetDescription()
+        {
+            string hatShine = Hat.GetShininessLevel();
+            if (_ColorfulRobe.Colors.Count > 1)
+            {
+                string allColors = "";
+                foreach (string color in _ColorfulRobe.Colors)
+                {
+                    allColors += $"{color}, ";
+                }
+                return $"Our adventurer is {Name} and they are wearing a lovely {allColors} robe that is {_ColorfulRobe.Length} long. The level of your hat's shine is {hatShine}";
+            }
+            else
+            {
+                return $"Our adventurer is {Name} and they are wearing a lovely {_ColorfulRobe.Colors[0]} robe that is {_ColorfulRobe.Length} long. The level of your hat's shine is {hatShine}";
+
+            }
+
+        }
 
         // This method returns a string that describes the Adventurer's status
         // Note one way to describe what this method does is:

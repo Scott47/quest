@@ -25,11 +25,11 @@ namespace Quest
 
             Challenge favoriteBeatle = new Challenge(
                 @"Who's your favorite Beatle?
-    1) John
-    2) Paul
-    3) George
-    4) Ringo
-",
+                1) John
+                2) Paul
+                3) George
+                4) Ringo
+                ",
                 4, 20
             );
 
@@ -42,8 +42,23 @@ namespace Quest
             int minAwesomeness = 0;
             int maxAwesomeness = 100;
 
+            Robe currentAdventurerRobe = new Robe();
+            Hat currentAdventurerHat = new Hat();
+            Prize currentAdventurerPrize = new Prize();
+
+            Console.WriteLine("Who is the embarking on this quest?");
+            string currentAdventurer = Console.ReadLine();
+            Console.WriteLine("On a scale of 0 - 10, how shiny is your hat?");
+            int shininessLevel = int.Parse(Console.ReadLine());
+            currentAdventurerRobe.Colors = new List<string>();
+            currentAdventurerRobe.Colors.Add("red");
+            currentAdventurerRobe.Colors.Add("turquoise");
+            currentAdventurerRobe.Colors.Add("banana");
+            currentAdventurerRobe.Length = "48 inches";
+            currentAdventurerHat.ShininessLevel = shininessLevel;
+
             // Make a new "Adventurer" object using the "Adventurer" class
-            Adventurer theAdventurer = new Adventurer("Jack");
+            Adventurer theAdventurer = new Adventurer(currentAdventurer, currentAdventurerRobe, currentAdventurerHat);
 
             // A list of challenges for the Adventurer to complete
             // Note we can use the List class here because have the line "using System.Collections.Generic;" at the top of the file.
@@ -55,27 +70,47 @@ namespace Quest
                 guessRandom,
                 favoriteBeatle
             };
+            string wardrobe = theAdventurer.GetDescription();
+            Console.WriteLine(wardrobe);
+            beginQuest();
+            currentAdventurerPrize.ShowPrize(theAdventurer);
 
-            // Loop through all the challenges and subject the Adventurer to them
-            foreach (Challenge challenge in challenges)
+            void beginQuest()
             {
-                challenge.RunChallenge(theAdventurer);
+
+                // Loop through all the challenges and subject the Adventurer to them
+                foreach (Challenge challenge in challenges)
+                {
+                    challenge.RunChallenge(theAdventurer);
+                }
+
+                // This code examines how Awesome the Adventurer is after completing the challenges
+                // And praises or humiliates them accordingly
+                if (theAdventurer.Awesomeness >= maxAwesomeness)
+                {
+                    Console.WriteLine("YOU DID IT! You are truly awesome!");
+                }
+                else if (theAdventurer.Awesomeness <= minAwesomeness)
+                {
+                    Console.WriteLine("Get out of my sight. Your lack of awesomeness offends me!");
+                }
+                else
+                {
+                    Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
+                }
+                Console.WriteLine("Will you dare to try again? Y/N: ");
+                string tryAgainResponse = Console.ReadLine().ToLower();
+                if (tryAgainResponse == "y")
+                {
+                    beginQuest();
+                }
+                if (tryAgainResponse == "n")
+                {
+                    Console.WriteLine("I thought it was time for you to lick your wounds.");
+                }
             }
 
-            // This code examines how Awesome the Adventurer is after completing the challenges
-            // And praises or humiliates them accordingly
-            if (theAdventurer.Awesomeness >= maxAwesomeness)
-            {
-                Console.WriteLine("YOU DID IT! You are truly awesome!");
-            }
-            else if (theAdventurer.Awesomeness <= minAwesomeness)
-            {
-                Console.WriteLine("Get out of my sight. Your lack of awesomeness offends me!");
-            }
-            else
-            {
-                Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
-            }
+
         }
     }
 }
